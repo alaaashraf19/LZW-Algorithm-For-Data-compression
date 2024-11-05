@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
 class LZW{
     private String input;
     private int currentPosition;
@@ -115,7 +119,7 @@ class LZW{
         return null;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Map<Integer, String> map = new HashMap<>();
         String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -124,7 +128,18 @@ class LZW{
             map.put(toAscii, String.valueOf(alphabet.charAt(i)));
         }
 
-        String input="ABAABABBAABAABAAAABABBBBBBBB";
+
+        String filePath ="E:\\Year 3\\Data Compression\\LZW\\input.txt";
+        String input="";
+        try (Scanner scanner = new Scanner(new File(filePath))) {
+            while (scanner.hasNextLine()) {
+                input = scanner.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+//        String input="ABAABABBAABAABAAAABABBBBBBBB";
         LZW lzw=new LZW(input,map);
         ArrayList<Integer> compressedOutput=lzw.compress();
         System.out.println("Compressed Output:");
@@ -142,6 +157,13 @@ class LZW{
         String decompressedOutput=lzw2.deCompress(compressedOutput);
         System.out.println("Decompressed Output:");
         System.out.println(decompressedOutput);
+
+        FileWriter myWriter = new FileWriter("output.txt");
+        myWriter.write(decompressedOutput);
+        myWriter.close();
+        File file = new File("output.txt");
+        System.out.println("File created at: " + file.getAbsolutePath());
+
 
     }
 }
