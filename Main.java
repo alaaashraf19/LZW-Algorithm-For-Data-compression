@@ -129,7 +129,7 @@ class LZW{
         }
 
 
-        String filePath ="E:\\Year 3\\Data Compression\\LZW-main\\LZW-main\\LZW\\input.txt";
+        String filePath ="input.txt";
         String input="";
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNextLine()) {
@@ -158,7 +158,7 @@ class LZW{
         System.out.println("Decompressed Output:");
         System.out.println(decompressedOutput);
 
-        FileWriter myWriter = new FileWriter("E:\\Year 3\\Data Compression\\LZW-main\\LZW-main\\LZW\\output.txt");
+        FileWriter myWriter = new FileWriter("output.txt");
         myWriter.write(decompressedOutput);
         myWriter.close();
         File file = new File("output.txt");
